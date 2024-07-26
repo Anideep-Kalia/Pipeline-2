@@ -1,24 +1,39 @@
 STEPS:
+-> every installation part is done by the repo
+> run the project locally => go build -o main . => ./main
 > made a docker multistage image (distroless)
+> now we'll make k8s file to make our project ready to be deployed on cluster 
 > made deployment, ingres and services file for k8's
-> Now using aws eks instead of kubectl 
+> Now using aws eks instead of minikube
 > make an IAM user(or don't) => configure to terminal by creating access key
+> install the aws eks, kubectl and configure the aws account
 > apply all three files of k8 made & edit the service by 'kubectl edit svc {name_of_service}' to nodeport so can be access my machine 
 . now get nodes external-ip by kubectl "get nodes -o wide:{port_from_get_svc}" => remember that don't use port:80 here the port:80 is port of machine which is mapped to pod
 . access the website using above ip and port
 > install nginx(ingres controller)
 > now confirm the load balancer is made by ingres controller by command "kubectl get ing"
-> Now we have allow host dns in ingres to access the application and so to access the application we have to do dns mapping on our aws node steps below
+> Now we have allow host dns in ingress to access the application and so to access the application we have to do dns mapping on our aws node steps below
 . nslookup {lb_ip}
 . copy the address
 . sudo vim /etc/hosts => "{paste_the_address} {dns_allowed_ingres_host}"
 > install helm
 . copy every k8 file into templates folder => inside deployment file change image version v1 to "{{.Values.image.tag}}"
 . in values.yaml these values are actually defined and tag is actual values which will be given which we will change of everytime CI pipeline is runned
-. delete all the deployemnts, svc and ingres previously made by: "kubectl delete deploy {name_of_project}"
-. inside helm folder run helm install {name_of_project} ./{project_name}-chart
+. delete all the deployemnts, svc and ingres previously made by: "kubectl delete deploy {name_of_project}" and clear chart.yaml in helm
+. inside helm folder run "helm install {name_of_project} ./{project_name}-chart"
 . now everything is back
-> CI: 
+. uninstall the helm because the CD pipeline is supposed to do this 
+> CI
+. make workflowa: build, code quality(linting or static code analysis), push image, update helm-chart values => all codes can be found in github marketplace
+. manage screte variables => settings => secretes => actions => repo secrete
+. in tags inside build and push actions we can see everytime image is pushed new tag will be assigned to it which is randomly generated
+. push the code to see the CI working 
+> CD
+. install ArgoCD => "kubectl get svc -n argocd"
+. can get on the svc ip or if it is taking time go to node external-ip:{port}  => again not 80
+. admin: admin; password => "kubectl get secrets -n argocd" => "kubectl edit secret argocd-initil.... -n argocd" => copy password => echo {password} | base64 --decode => now got password
+. new app => sync: auto => self heal => git hub repo of project => path: auto-detect => destination: given; namespace: default => helm: values file: value.yaml => create
+. now check if the deployment and svc and ingres is working or not by get commands remember that nothing was working before CD pipeline runned
 
  
 -> We will make a muti-stage docker file 
