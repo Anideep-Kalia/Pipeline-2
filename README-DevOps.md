@@ -9,6 +9,10 @@ DevOps practices include the following:
 - Continuous Integration (CI)
 - Continuous Deployment (CD)
 
+## Summary Diagram
+![image](https://github.com/user-attachments/assets/5dfb575f-2f01-4bf0-859f-f5529d12ac24)
+
+
 ## Creating Dockerfile (Multi-stage build)
 
 The Dockerfile is used to build a Docker image. The Docker image contains the Go web application and its dependencies. The Docker image is then used to create a Docker container.
