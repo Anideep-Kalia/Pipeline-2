@@ -65,6 +65,25 @@ We will use Argo CD to implement CD for the Go web application. Argo CD is a dec
 The Argo CD application will deploy the Go web application to a Kubernetes cluster. The application will be automatically synced with the Git repository, ensuring that the application is always up to date.
 
 ## Conclusion
+# Go Web Application
+
+This is a simple website written in Golang. It uses the `net/http` package to serve HTTP requests.
+
+## Running the server
+
+To run the server, execute the following command:
+
+```bash
+go run main.go
+```
+
+The server will start on port 8080. You can access it by navigating to `http://localhost:8080/courses` in your web browser.
+
+## Looks like this
+
+
+
+
 
 
 
