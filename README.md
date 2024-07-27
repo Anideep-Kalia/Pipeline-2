@@ -81,8 +81,7 @@ go run main.go
 The server will start on port 8080. You can access it by navigating to `http://localhost:8080/courses` in your web browser.
 
 ## Looks like this
-
-
+![image](https://github.com/user-attachments/assets/cdcdb88e-7598-4418-bebf-19352afe10e2)
 
 
 
